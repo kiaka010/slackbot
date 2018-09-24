@@ -64,7 +64,10 @@ class SlackClient(object):
         self.parse_channel_data(login_data['ims'])
 
         proxy, proxy_port, no_proxy = None, None, None
+        print "Testing Proxy"
+
         if 'http_proxy' in os.environ:
+            print "Found http_proxy"
             proxy, proxy_port = os.environ['http_proxy'].rsplit(':',1)
         if 'http://' in proxy:
             proxy = proxy[7:]
@@ -72,7 +75,8 @@ class SlackClient(object):
             proxy_port = proxy_port[:-1]
         if 'no_proxy' in os.environ:
             no_proxy = os.environ['no_proxy']
-
+        print proxy
+        print proxy_port
         self.websocket = create_connection(self.login_data['url'], http_proxy_host=proxy,
                                            http_proxy_port=proxy_port, http_no_proxy=no_proxy)
 
