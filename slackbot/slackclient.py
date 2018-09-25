@@ -64,7 +64,7 @@ class SlackClient(object):
         self.parse_channel_data(login_data['ims'])
 
         proxy, proxy_port, no_proxy = None, None, None
-        print "Testing Proxy"
+        print("Testing Proxy")
 
         if 'http_proxy' in os.environ:
             print "Found http_proxy"
