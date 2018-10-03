@@ -61,14 +61,14 @@ class MessageDispatcher(object):
                         func.__name__, msg['text'])
                     tb = u'```\n{}\n```'.format(traceback.format_exc())
                     if self._errors_to:
-                        self._client.rtm_send_message(msg['channel'], reply)
+                        # self._client.rtm_send_message(msg['channel'], reply)
                         self._client.rtm_send_message(self._errors_to,
                                                       '{}\n{}'.format(reply,
                                                                       tb))
-                    else:
-                        self._client.rtm_send_message(msg['channel'],
-                                                      '{}\n{}'.format(reply,
-                                                                      tb))
+                    # else:
+                    #     self._client.rtm_send_message(msg['channel'],
+                    #                                   '{}\n{}'.format(reply,
+                    #                                                   tb))
         return responded
 
     def _on_new_message(self, msg):
@@ -267,7 +267,7 @@ class Message(object):
     def direct_reply(self, text):
         """
             Send a reply via direct message using RTM API
-            
+
         """
         channel_id = self._client.open_dm_channel(self._get_user_id())
         self._client.rtm_send_message(channel_id, text)
