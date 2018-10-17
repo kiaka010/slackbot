@@ -283,6 +283,11 @@ class Message(object):
         """
         self._client.rtm_send_message(self._body['channel'], text, thread_ts=thread_ts)
 
+    def pin(self):
+        self._client.pin(
+            channel=self._body['channel'],
+            timestamp=self._body['ts'])
+
     def react(self, emojiname):
         """
            React to a message using the web api
