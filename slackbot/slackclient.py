@@ -184,13 +184,13 @@ class SlackClient(object):
             timestamp=timestamp)
 
     def pin(self, channel, timestamp):
-        return self.webapi.pins.add(
+        self.webapi.pins.add(
             channel=channel,
             timestamp=timestamp
         )
 
     def list_pins(self, channel):
-        self.oauthwebapi.pins.list(
+        return self.oauthwebapi.pins.list(
             channel=channel
         )
 
