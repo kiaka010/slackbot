@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class SlackClient(object):
     def __init__(self, token, timeout=None, bot_icon=None, bot_emoji=None, connect=True, oauth_token=None):
         self.token = token
-        self.oauth_token = oauth_token
+        # self.oauth_token = oauth_token
         self.bot_icon = bot_icon
         self.bot_emoji = bot_emoji
         self.username = None
@@ -34,12 +34,12 @@ class SlackClient(object):
         self.connected = False
         if timeout is None:
             self.webapi = slacker.Slacker(self.token)
-            if oauth_token is not None:
-                self.oauthwebapi = slacker.Slacker(oauth_token)
+            # if oauth_token is not None:
+            #     self.oauthwebapi = slacker.Slacker(oauth_token)
         else:
             self.webapi = slacker.Slacker(self.token, timeout=timeout)
-            if oauth_token is not None:
-                self.oauthwebapi = slacker.Slacker(oauth_token, timeout=timeout)
+            # if oauth_token is not None:
+            #     self.oauthwebapi = slacker.Slacker(oauth_token, timeout=timeout)
         if connect:
             self.rtm_connect()
 
@@ -189,10 +189,10 @@ class SlackClient(object):
             timestamp=timestamp
         )
 
-    def list_pins(self, channel):
-        return self.oauthwebapi.pins.list(
-            channel=channel
-        )
+    # def list_pins(self, channel):
+    #     return self.oauthwebapi.pins.list(
+    #         channel=channel
+    #     )
 
 class SlackConnectionError(Exception):
     pass

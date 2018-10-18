@@ -19,7 +19,7 @@ class Bot(object):
     def __init__(self):
         self._client = SlackClient(
             settings.API_TOKEN,
-            oauth_token=settings.OAUTH_TOKEN,
+            # oauth_token=settings.OAUTH_TOKEN,
             timeout=settings.TIMEOUT if hasattr(settings,
                                                 'TIMEOUT') else None,
             bot_icon=settings.BOT_ICON if hasattr(settings,
@@ -46,6 +46,17 @@ class Bot(object):
         while True:
             time.sleep(30 * 60)
             self._client.ping()
+
+
+def react_to(react_str, flags=0):
+    def wrapper(func):
+        PluginsManager.commands['react_to'][
+            re.compile(react_str, flags)] = func
+        logger.info('registered react_to plugin "%s" to "%s"', func.__name__,
+                    react_str)
+        return func
+
+    return wrapper
 
 
 def respond_to(matchstr, flags=0):
