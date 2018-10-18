@@ -19,6 +19,7 @@ class Bot(object):
     def __init__(self):
         self._client = SlackClient(
             settings.API_TOKEN,
+            oauth_token=settings.OAUTH_TOKEN,
             timeout=settings.TIMEOUT if hasattr(settings,
                                                 'TIMEOUT') else None,
             bot_icon=settings.BOT_ICON if hasattr(settings,
@@ -33,9 +34,9 @@ class Bot(object):
     def run(self):
         self._plugins.init_plugins()
         self._dispatcher.start()
-        if not self._client.connected: 
+        if not self._client.connected:
             self._client.rtm_connect()
-            
+
         _thread.start_new_thread(self._keepactive, tuple())
         logger.info('connected to slack RTM api')
         self._dispatcher.loop()
