@@ -185,7 +185,7 @@ class SlackClient(object):
             timestamp=timestamp
         )
 
-    def pin(self, channel):
+    def list_pins(self, channel):
         self.webapi.pins.list(
             channel=channel
         )
