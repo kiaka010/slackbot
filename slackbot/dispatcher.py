@@ -288,6 +288,11 @@ class Message(object):
             channel=self._body['channel'],
             timestamp=self._body['ts'])
 
+    def get_pins(self):
+        return self._client.list_pins(
+            channel=self._body['channel']
+        )
+
     def react(self, emojiname):
         """
            React to a message using the web api

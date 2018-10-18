@@ -180,9 +180,14 @@ class SlackClient(object):
             timestamp=timestamp)
 
     def pin(self, channel, timestamp):
-        self.webapi.pins.add(
+        return self.webapi.pins.add(
             channel=channel,
             timestamp=timestamp
+        )
+
+    def pin(self, channel):
+        self.webapi.pins.list(
+            channel=channel
         )
 
 class SlackConnectionError(Exception):
