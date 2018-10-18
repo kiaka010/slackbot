@@ -41,6 +41,7 @@ class MessageDispatcher(object):
     def dispatch_msg(self, msg):
         category = msg[0]
         msg = msg[1]
+        print (category)
         print (msg)
         if not self._dispatch_msg_handler(category, msg):
             if category == u'respond_to':
