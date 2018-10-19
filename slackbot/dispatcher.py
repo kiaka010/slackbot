@@ -63,9 +63,9 @@ class MessageDispatcher(object):
                 except:
                     logger.exception(
                         'failed to handle message %s with plugin "%s"',
-                        msg['text'], func.__name__)
+                        msg[lookup], func.__name__)
                     reply = u'[{}] I had a problem handling "{}"\n'.format(
-                        func.__name__, msg['text'])
+                        func.__name__, msg[lookup])
                     tb = u'```\n{}\n```'.format(traceback.format_exc())
                     if self._errors_to:
                         # self._client.rtm_send_message(msg['channel'], reply)
