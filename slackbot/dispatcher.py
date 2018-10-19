@@ -300,6 +300,14 @@ class Message(object):
             channel=self._body['channel'],
             timestamp=self._body['ts'])
 
+    def get_pins(self, channel):
+        if channel is None:
+            channel = self._body['channel']
+
+        return self._client.get_pins(
+            channel=channel
+        )
+
     def unpin(self, channel=None, ts=None):
 
         if channel is None:
