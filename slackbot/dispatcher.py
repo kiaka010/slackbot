@@ -300,6 +300,18 @@ class Message(object):
             channel=self._body['channel'],
             timestamp=self._body['ts'])
 
+    def unpin(self, channel=None, ts=None):
+
+        if channel is None:
+            channel = self._body['channel']
+
+        if ts is None:
+            ts = self._body['ts']
+
+        self._client.pin(
+            channel=channel,
+            timestamp=ts
+        )
     # def get_pins(self):
     #     return self._client.list_pins(
     #         channel=self._body['channel']
