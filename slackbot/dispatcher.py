@@ -50,7 +50,12 @@ class MessageDispatcher(object):
 
     def _dispatch_msg_handler(self, category, msg):
         responded = False
-        for func, args in self._plugins.get_plugins(category, msg.get('text', None)):
+        lookup = 'text'
+
+        if 'text' not in msg and 'reaction' in msg:
+            lookup = 'reaction'
+
+        for func, args in self._plugins.get_plugins(category, msg.get(lookup, None)):
             if func:
                 responded = True
                 try:
@@ -74,7 +79,7 @@ class MessageDispatcher(object):
         return responded
 
     def _on_new_react(self, react):
-        self._pool.add_task(('react_to', react.get('reaction')))
+        self._pool.add_task(('react_to', react))
 
     def _on_new_message(self, msg):
         # ignore edits
