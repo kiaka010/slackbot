@@ -195,6 +195,21 @@ class SlackClient(object):
             timestamp=timestamp
         )
 
+    def get_group_message(self, channel, thread_ts):
+        if channel[:1] == 'G':
+            return self.webapi.groups.replies(
+                channel=channel,
+                thread_ts=thread_ts
+            )
+        if channel[:1] == 'C':
+            return self.webapi.channels.replies(
+                channel=channel,
+                thread_ts=thread_ts
+            )
+        return None
+
+
+
     # def list_pins(self, channel):
     #     return self.oauthwebapi.pins.list(
     #         channel=channel

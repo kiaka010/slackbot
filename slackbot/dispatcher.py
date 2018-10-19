@@ -312,6 +312,12 @@ class Message(object):
             channel=channel,
             timestamp=ts
         )
+
+    def get_group_message(self, channel, thread_ts):
+        return self._client.get_group_message(
+            channel=channel,
+            thread_ts=thread_ts
+        )
     # def get_pins(self):
     #     return self._client.list_pins(
     #         channel=self._body['channel']
