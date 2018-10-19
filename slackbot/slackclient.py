@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class SlackClient(object):
     def __init__(self, token, timeout=None, bot_icon=None, bot_emoji=None, connect=True, oauth_token=None):
         self.token = token
-        # self.oauth_token = oauth_token
+        self.oauth_token = oauth_token
         self.bot_icon = bot_icon
         self.bot_emoji = bot_emoji
         self.username = None
@@ -34,12 +34,12 @@ class SlackClient(object):
         self.connected = False
         if timeout is None:
             self.webapi = slacker.Slacker(self.token)
-            # if oauth_token is not None:
-            #     self.oauthwebapi = slacker.Slacker(oauth_token)
+            if oauth_token is not None:
+                self.oauthwebapi = slacker.Slacker(oauth_token)
         else:
             self.webapi = slacker.Slacker(self.token, timeout=timeout)
-            # if oauth_token is not None:
-            #     self.oauthwebapi = slacker.Slacker(oauth_token, timeout=timeout)
+            if oauth_token is not None:
+                self.oauthwebapi = slacker.Slacker(oauth_token, timeout=timeout)
         if connect:
             self.rtm_connect()
 
@@ -197,12 +197,12 @@ class SlackClient(object):
 
     def get_group_message(self, channel, thread_ts):
         if channel[:1] == 'G':
-            return self.webapi.groups.replies(
+            return self.oauthwebapi.groups.replies(
                 channel=channel,
                 thread_ts=thread_ts
             )
         if channel[:1] == 'C':
-            return self.webapi.channels.replies(
+            return self.oauthwebapi.channels.replies(
                 channel=channel,
                 thread_ts=thread_ts
             )
