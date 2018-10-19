@@ -308,7 +308,7 @@ class Message(object):
         if ts is None:
             ts = self._body['ts']
 
-        self._client.pin(
+        self._client.unpin(
             channel=channel,
             timestamp=ts
         )
