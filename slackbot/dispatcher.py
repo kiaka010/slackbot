@@ -270,10 +270,10 @@ class Message(object):
             in_thread = 'thread_ts' in self.body
 
         if in_thread:
-            self.send(text, thread_ts=self.thread_ts)
+            return self.send(text, thread_ts=self.thread_ts)
         else:
             text = self.gen_reply(text)
-            self.send(text)
+            return self.send(text)
 
     @unicode_compact
     def direct_reply(self, text):
@@ -293,7 +293,7 @@ class Message(object):
             (This function doesn't supports formatted message
             when using a bot integration)
         """
-        self._client.rtm_send_message(self._body['channel'], text, thread_ts=thread_ts)
+        return self._client.rtm_send_message(self._body['channel'], text, thread_ts=thread_ts)
 
     def pin(self):
         self._client.pin(
@@ -330,6 +330,15 @@ class Message(object):
     #     return self._client.list_pins(
     #         channel=self._body['channel']
     #     )
+
+    def send_react(self, emojiname, channel, ts):
+        """
+           React to a message using the web api
+        """
+        self._client.react_to_message(
+            emojiname=emojiname,
+            channel=channel,
+            timestamp=ts)
 
     def react(self, emojiname):
         """
