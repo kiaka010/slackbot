@@ -326,6 +326,11 @@ class Message(object):
             channel=channel,
             thread_ts=thread_ts
         )
+
+    def get_group_history(self, channel):
+        return self._client.get_group_history(
+            channel=channel
+        )
     # def get_pins(self):
     #     return self._client.list_pins(
     #         channel=self._body['channel']
