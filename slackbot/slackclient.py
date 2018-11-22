@@ -211,6 +211,11 @@ class SlackClient(object):
                 channel=channel,
                 count=5
             )
+        if channel[:1] == 'D':
+            return self.oauthwebapi.conversations.history(
+                channel=channel,
+                limit=5
+            )
         return None
 
     def get_group_message(self, channel, thread_ts):
