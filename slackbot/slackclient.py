@@ -87,7 +87,7 @@ class SlackClient(object):
     def send_to_websocket(self, data):
         """Send (data) directly to the websocket."""
         data = json.dumps(data)
-        self.websocket.send(data)
+        return self.websocket.send(data)
 
     def ping(self):
         return self.send_to_websocket({'type': 'ping'})
@@ -127,7 +127,7 @@ class SlackClient(object):
             'attachments': attachments,
             'thread_ts': thread_ts,
             }
-        self.send_to_websocket(message_json)
+        return self.send_to_websocket(message_json)
 
     def upload_file(self, channel, fname, fpath, comment):
         fname = fname or to_utf8(os.path.basename(fpath))
@@ -199,6 +199,19 @@ class SlackClient(object):
             channel=channel,
             timestamp=timestamp
         )
+
+    def get_group_history(self, channel):
+        if channel[:1] == 'G':
+            return self.oauthwebapi.groups.history(
+                channel=channel,
+                count=5
+            )
+        if channel[:1] == 'C':
+            return self.oauthwebapi.channels.history(
+                channel=channel,
+                count=5
+            )
+        return None
 
     def get_group_message(self, channel, thread_ts):
         if channel[:1] == 'G':
