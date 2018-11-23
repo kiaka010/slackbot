@@ -214,7 +214,7 @@ class SlackClient(object):
         if channel[:1] == 'D':
             return self.oauthwebapi.im.history(
                 channel=channel,
-                limit=5
+                count=5
             )
         return None
 
