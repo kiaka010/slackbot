@@ -212,7 +212,7 @@ class SlackClient(object):
                 count=5
             )
         if channel[:1] == 'D':
-            return self.oauthwebapi.conversations.history(
+            return self.oauthwebapi.im.history(
                 channel=channel,
                 limit=5
             )
