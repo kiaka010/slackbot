@@ -202,17 +202,17 @@ class SlackClient(object):
 
     def get_group_history(self, channel):
         if channel[:1] == 'G':
-            return self.webapi.groups.history(
+            return self.oauthwebapi.groups.history(
                 channel=channel,
                 count=5
             )
         if channel[:1] == 'C':
-            return self.webapi.channels.history(
+            return self.oauthwebapi.channels.history(
                 channel=channel,
                 count=5
             )
         if channel[:1] == 'D':
-            return self.webapi.conversations.history(
+            return self.oauthwebapi.conversations.history(
                 channel=channel,
                 limit=5
             )
@@ -220,12 +220,12 @@ class SlackClient(object):
 
     def get_group_message(self, channel, thread_ts):
         if channel[:1] == 'G':
-            return self.webapi.groups.replies(
+            return self.oauthwebapi.groups.replies(
                 channel=channel,
                 thread_ts=thread_ts
             )
         if channel[:1] == 'C':
-            return self.webapi.channels.replies(
+            return self.oauthwebapi.channels.replies(
                 channel=channel,
                 thread_ts=thread_ts
             )
