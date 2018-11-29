@@ -200,21 +200,21 @@ class SlackClient(object):
             timestamp=timestamp
         )
 
-    def get_group_history(self, channel):
+    def get_group_history(self, channel, limit=5):
         if channel[:1] == 'G':
             return self.oauthwebapi.groups.history(
                 channel=channel,
-                count=5
+                count=limit
             )
         if channel[:1] == 'C':
             return self.oauthwebapi.channels.history(
                 channel=channel,
-                count=5
+                count=limit
             )
         if channel[:1] == 'D':
             return self.oauthwebapi.im.history(
                 channel=channel,
-                count=5
+                count=limit
             )
         return None
 
