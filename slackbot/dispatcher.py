@@ -345,6 +345,15 @@ class Message(object):
             channel=channel,
             timestamp=ts)
 
+    def remove_react(self, emojiname):
+        """
+             React to a message using the web api
+        """
+        self._client.remove_react_to_message(
+            emojiname=emojiname,
+            channel=self._body['channel'],
+            timestamp=self._body['ts'])
+
     def react(self, emojiname):
         """
            React to a message using the web api

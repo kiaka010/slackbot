@@ -177,6 +177,12 @@ class SlackClient(object):
             if user['name'] == username:
                 return userid
 
+    def remove_react_to_message(self, emojiname, channel, timestamp):
+        self.webapi.reactions.remove(
+            name=emojiname,
+            channel=channel,
+            timestamp=timestamp)
+
     def react_to_message(self, emojiname, channel, timestamp):
         self.webapi.reactions.add(
             name=emojiname,
