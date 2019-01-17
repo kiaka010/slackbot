@@ -389,7 +389,6 @@ class Message(object):
         if command is not None:
             for _, v in six.iteritems(self._plugins.commands['respond_to']):
                 if v.__name__ == command:
-                    v = self._plugins.commands['respond_to'][command]
                     reply = u'    • `{0}` {1}'.format(v.__name__, v.__doc__ or '')
                     return reply
             return 'No command found under %s' % command
