@@ -387,9 +387,12 @@ class Message(object):
     def docs_reply(self, command=None):
 
         if command is not None:
-            v = self._plugins.commands['respond_to'][command]
-            reply = u'    • `{0}` {1}'.format(v.__name__, v.__doc__ or '')
-            return reply
+            for _, v in six.iteritems(self._plugins.commands['respond_to']):
+                if v.__name__ == command:
+                    v = self._plugins.commands['respond_to'][command]
+                    reply = u'    • `{0}` {1}'.format(v.__name__, v.__doc__ or '')
+                    return reply
+            return 'No command found under %s' % command
         else:
             reply = [u'    • `{0}`'.format(v.__name__)
                      for _, v in
