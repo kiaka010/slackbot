@@ -206,6 +206,17 @@ class SlackClient(object):
             timestamp=timestamp
         )
 
+    def get_group_info(self, channel):
+        if channel[:1] == 'G':
+            return self.webapi.groups.info(
+                channel=channel
+            )
+        if channel[:1] == 'C':
+            return self.webapi.channels.history(
+                channel=channel
+            )
+        return None
+
     def get_group_history(self, channel, limit=5):
         if channel[:1] == 'G':
             return self.oauthwebapi.groups.history(
