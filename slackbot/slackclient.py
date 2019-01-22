@@ -208,11 +208,11 @@ class SlackClient(object):
 
     def get_group_info(self, channel):
         if channel[:1] == 'G':
-            return self.webapi.groups.info(
+            return self.oauthwebapi.groups.info(
                 channel=channel
             )
         if channel[:1] == 'C':
-            return self.webapi.channels.history(
+            return self.oauthwebapi.channels.history(
                 channel=channel
             )
         return None
