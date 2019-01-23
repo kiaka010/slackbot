@@ -284,6 +284,12 @@ class Message(object):
         channel_id = self._client.open_dm_channel(self._get_user_id())
         self._client.rtm_send_message(channel_id, text)
 
+    @unicode_compact
+    def send_channel_message(self,channel, message):
+        self._client.send_message(
+            channel=channel,
+            message=message
+        )
 
     @unicode_compact
     def send(self, text, thread_ts=None):
@@ -319,12 +325,6 @@ class Message(object):
         self._client.unpin(
             channel=channel,
             timestamp=ts
-        )
-
-    def send_channel_message(self,channel, message):
-        return self._client.rtm_send_message(
-            channel=channel,
-            message=message
         )
 
     def get_group_message(self, channel, thread_ts):
