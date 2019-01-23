@@ -321,6 +321,12 @@ class Message(object):
             timestamp=ts
         )
 
+    def send_channel_message(self,channel, message):
+        return self._client.rtm_send_message(
+            channel=channel,
+            message=message
+        )
+
     def get_group_message(self, channel, thread_ts):
         return self._client.get_group_message(
             channel=channel,
