@@ -286,8 +286,10 @@ class Message(object):
 
     @unicode_compact
     def send_channel_message(self, channel, message):
-        self._body['channel'] = channel
-        self.reply(message)
+        self._client.send_message(
+            channel=channel,
+            message=message
+        )
 
     @unicode_compact
     def send(self, text, thread_ts=None):
