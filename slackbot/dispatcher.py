@@ -285,10 +285,11 @@ class Message(object):
         self._client.rtm_send_message(channel_id, text)
 
     @unicode_compact
-    def send_channel_message(self, channel, message):
+    def send_channel_message(self, channel, message, attachments=None):
         self._client.send_message(
             channel=channel,
-            message=message
+            message=message,
+            attachments=attachments
         )
 
     @unicode_compact
