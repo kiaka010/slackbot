@@ -215,6 +215,10 @@ class Message(object):
         return text
 
     @unicode_compact
+    def get_user(self, user_id):
+        return self._client.get_user(user_id)
+
+    @unicode_compact
     def gen_reply(self, text):
         chan = self._body['channel']
         if chan.startswith('C') or chan.startswith('G'):
