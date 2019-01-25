@@ -343,6 +343,15 @@ class Message(object):
             channel=channel
         )
 
+    def get_message(self, channel, ts):
+        return self._client.get_group_history(
+            channel=channel,
+            limit=1,
+            inclusive=1,
+            oldest=ts,
+            latest=ts,
+        )
+
     def get_group_history(self, channel):
         return self._client.get_group_history(
             channel=channel

@@ -217,21 +217,30 @@ class SlackClient(object):
             )
         return None
 
-    def get_group_history(self, channel, limit=5):
+    def get_group_history(self, channel, limit=5, inclusive=0, oldest=None, latest="now"):
         if channel[:1] == 'G':
             return self.oauthwebapi.groups.history(
                 channel=channel,
-                count=limit
+                count=limit,
+                inclusive=inclusive,
+                oldest=oldest,
+                latest=latest
             )
         if channel[:1] == 'C':
             return self.oauthwebapi.channels.history(
                 channel=channel,
-                count=limit
+                count=limit,
+                inclusive=inclusive,
+                oldest=oldest,
+                latest=latest
             )
         if channel[:1] == 'D':
             return self.oauthwebapi.im.history(
                 channel=channel,
-                count=limit
+                count=limit,
+                inclusive=inclusive,
+                oldest=oldest,
+                latest=latest
             )
         return None
 
