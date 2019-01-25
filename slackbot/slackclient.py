@@ -144,7 +144,7 @@ class SlackClient(object):
                                  initial_comment=comment)
 
     def send_message(self, channel, message, attachments=None, as_user=True, thread_ts=None):
-        self.webapi.chat.post_message(
+        return self.webapi.chat.post_message(
                 channel,
                 message,
                 username=self.login_data['self']['name'],

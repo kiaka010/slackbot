@@ -253,7 +253,7 @@ class Message(object):
             (This function supports formatted message
             when using a bot integration)
         """
-        self._client.send_message(
+        return self._client.send_message(
             self._body['channel'],
             text,
             attachments=attachments,
@@ -290,7 +290,7 @@ class Message(object):
 
     @unicode_compact
     def send_channel_message(self, channel, message, attachments=None):
-        self._client.send_message(
+        return self._client.send_message(
             channel=channel,
             message=message,
             attachments=attachments
