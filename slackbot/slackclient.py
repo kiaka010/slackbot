@@ -255,6 +255,11 @@ class SlackClient(object):
                 channel=channel,
                 thread_ts=thread_ts
             )
+        if channel[:1] == 'D':
+            return self.oauthwebapi.im.replies(
+                channel=channel,
+                thread_ts=thread_ts
+            )
         return None
 
 
