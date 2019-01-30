@@ -47,7 +47,9 @@ class MessageDispatcher(object):
             if category == u'respond_to':
                 if not self._dispatch_msg_handler('default_reply', msg):
                     self._default_reply(msg)
-
+            elif category == u'listen_to':
+                if not self._dispatch_msg_handler('default_listen', msg):
+                    self._default_listen(msg)
     def _dispatch_msg_handler(self, category, msg):
         responded = False
         lookup = 'text'
@@ -162,6 +164,24 @@ class MessageDispatcher(object):
                     user = [event['user']]
                     self._client.parse_user_data(user)
             time.sleep(1)
+
+    def _default_listen(self, msg):
+        default_listen = settings.DEFAULT_LISTEN
+        if default_listen is None:
+            default_listen = [
+                u'Bad command "{}", You can ask me one of the following '
+                u'questions:\n'.format(
+                    msg['text']),
+            ]
+            default_listen += [
+                u'    • `{0}` {1}'.format(p.pattern, v.__doc__ or "")
+                for p, v in
+                six.iteritems(self._plugins.commands['respond_to'])]
+            # pylint: disable=redefined-variable-type
+            default_listen = u'\n'.join(default_listen)
+
+        m = Message(self._client, msg)
+        m.reply(default_listen)
 
     def _default_reply(self, msg):
         default_reply = settings.DEFAULT_REPLY

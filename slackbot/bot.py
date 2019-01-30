@@ -80,6 +80,22 @@ def listen_to(matchstr, flags=0):
 
     return wrapper
 
+def default_listen(*args, **kwargs):
+    invoked = bool(not args or kwargs)
+    matchstr = kwargs.pop('matchstr', r'^.*$')
+    flags = kwargs.pop('flags', 0)
+
+    if not invoked:
+        func = args[0]
+
+    def wrapper(func):
+        PluginsManager.commands['default_listen'][
+            re.compile(matchstr, flags)] = func
+        logger.info('registered default_listen plugin "%s" to "%s"', func.__name__,
+                    matchstr)
+        return func
+
+    return wrapper if invoked else wrapper(func)
 
 # def default_reply(matchstr=r'^.*$', flags=0):
 def default_reply(*args, **kwargs):
