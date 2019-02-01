@@ -40,6 +40,7 @@ effect.
 
 '''Specify a different reply when the bot is messaged with no matching cmd'''
 DEFAULT_REPLY = None
+DEFAULT_LISTEN = None
 
 for key in os.environ:
     if key[:9] == 'SLACKBOT_':
@@ -57,5 +58,11 @@ except ImportError:
 # convert default_reply to DEFAULT_REPLY
 try:
     DEFAULT_REPLY = default_reply
+except NameError:
+    pass
+
+
+try:
+    DEFAULT_LISTEN = default_listen
 except NameError:
     pass

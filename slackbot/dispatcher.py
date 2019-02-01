@@ -167,21 +167,9 @@ class MessageDispatcher(object):
 
     def _default_listen(self, msg):
         default_listen = settings.DEFAULT_LISTEN
-        if default_listen is None:
-            default_listen = [
-                u'Bad command "{}", You can ask me one of the following '
-                u'questions:\n'.format(
-                    msg['text']),
-            ]
-            default_listen += [
-                u'    • `{0}` {1}'.format(p.pattern, v.__doc__ or "")
-                for p, v in
-                six.iteritems(self._plugins.commands['respond_to'])]
-            # pylint: disable=redefined-variable-type
-            default_listen = u'\n'.join(default_listen)
-
-        m = Message(self._client, msg)
-        m.reply(default_listen)
+        if default_listen is not None:
+            m = Message(self._client, msg)
+            m.reply(default_listen)
 
     def _default_reply(self, msg):
         default_reply = settings.DEFAULT_REPLY
