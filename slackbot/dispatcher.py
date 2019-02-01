@@ -248,10 +248,10 @@ class Message(object):
             in_thread = 'thread_ts' in self.body
 
         if in_thread:
-            self.send_webapi(text, attachments=attachments, as_user=as_user, thread_ts=self.thread_ts)
+            return self.send_webapi(text, attachments=attachments, as_user=as_user, thread_ts=self.thread_ts)
         else:
             text = self.gen_reply(text)
-            self.send_webapi(text, attachments=attachments, as_user=as_user)
+            return self.send_webapi(text, attachments=attachments, as_user=as_user)
 
     @unicode_compact
     def send_webapi(self, text, attachments=None, as_user=True, thread_ts=None):
