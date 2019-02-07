@@ -334,6 +334,19 @@ class Message(object):
             channel=channel
         )
 
+    def delete_message(self, channel=None, ts=None):
+
+        if channel is None:
+            channel = self._body['channel']
+
+        if ts is None:
+            ts = self._body['ts']
+
+        self._client.chat_delete(
+            channel=channel,
+            ts=ts
+        )
+
     def unpin(self, channel=None, ts=None):
 
         if channel is None:

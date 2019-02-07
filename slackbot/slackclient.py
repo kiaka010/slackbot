@@ -200,6 +200,12 @@ class SlackClient(object):
             channel=channel
         )
 
+    def chat_delete(self, channel, ts):
+        self.webapi.chat.delete(
+            channel=channel,
+            ts=ts
+        )
+
     def unpin(self, channel, timestamp):
         self.webapi.pins.remove(
             channel=channel,
