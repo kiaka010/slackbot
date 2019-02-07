@@ -337,10 +337,10 @@ class Message(object):
     def delete_message(self, channel=None, ts=None):
 
         if channel is None:
-            channel = self._body['channel']
+            channel = self._body['item']['channel']
 
         if ts is None:
-            ts = self._body['ts']
+            ts = self._body['item']['ts']
 
         self._client.chat_delete(
             channel=channel,
