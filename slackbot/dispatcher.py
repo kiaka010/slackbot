@@ -412,12 +412,9 @@ class Message(object):
            React to a message using the web api
         """
 
-        channel = self._body['channel'] if 'channel' in self._body else None
-        channel = self._body['item']['channel'] if 'item' in self._body and 'channel' in self._body['item'] else channel
-        logger.info("Reacting to channel: %s " % channel)
         self._client.react_to_message(
             emojiname=emojiname,
-            channel=channel,
+            channel=self._body['channel'],
             timestamp=self._body['ts'])
 
     @property
