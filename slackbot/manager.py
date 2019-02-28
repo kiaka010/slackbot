@@ -16,9 +16,12 @@ class PluginsManager(object):
         pass
 
     message = None
-
+    user = None
     def set_message(self, message):
         self.message = message
+
+    def set_user(self, user):
+        self.user = user
 
 
     commands = {
@@ -81,7 +84,7 @@ class PluginsManager(object):
                 if channel and channel != self.message._body['channel']:
                     yield None, None
 
-                if user and user != self.message._body['user']:
+                if user and user != self.user:
                     yield None, None
                 m = match.search(text)
                 if m:

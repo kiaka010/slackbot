@@ -212,6 +212,7 @@ class Message(object):
         self._body = body
         self._plugins = PluginsManager()
         self._plugins.set_message(body)
+        self._plugins.set_user(self._get_user_id())
 
     def _get_user_id(self):
         if 'user' in self._body:

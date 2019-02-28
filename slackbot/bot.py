@@ -79,7 +79,7 @@ def listen_from(matchstr, user_name=None, channel=None, flags=0):
                 channel
             )
         ] = func
-        logger.info('registered listen_from plugin "%s" to "%s" with U:%s , C%s', func.__name__,
+        logger.info('registered listen_from plugin "%s" to "%s" with U:%s , C:%s', func.__name__,
                     matchstr, user_name, channel)
         return func
 
