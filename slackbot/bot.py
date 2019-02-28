@@ -73,12 +73,17 @@ def respond_to(matchstr, flags=0):
 def listen_from(matchstr, user_name=None, channel=None, flags=0):
     def wrapper(func):
         PluginsManager.commands['listen_from'][
-            re.compile(matchstr, flags)] = func
+            (
+                re.compile(matchstr, flags),
+                user_name,
+                channel
+            )
+        ] = func
         logger.info('registered listen_from plugin "%s" to "%s" with U:%s , C%s', func.__name__,
                     matchstr, user_name, channel)
         return func
 
-    return wrapper, user_name, channel
+    return wrapper
 
 
 def listen_to(matchstr, flags=0):
