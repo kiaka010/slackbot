@@ -106,6 +106,7 @@ class MessageDispatcher(object):
         if msg_respond_to:
             self._pool.add_task(('respond_to', msg_respond_to))
         else:
+            self._pool.add_task(('listen_from', msg))
             self._pool.add_task(('listen_to', msg))
 
     def _get_bot_id(self):
@@ -210,6 +211,7 @@ class Message(object):
         self._client = slackclient
         self._body = body
         self._plugins = PluginsManager()
+        self._plugins.set_message(body)
 
     def _get_user_id(self):
         if 'user' in self._body:

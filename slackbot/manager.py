@@ -15,8 +15,15 @@ class PluginsManager(object):
     def __init__(self):
         pass
 
+    message = None
+
+    def set_message(self, message):
+        self.message = message
+
+
     commands = {
         'respond_to': {},
+        'listen_from': {},
         'listen_to': {},
         'react_to': {},
         'default_reply': {},
@@ -69,10 +76,22 @@ class PluginsManager(object):
         if text is None:
             text = ''
         for matcher in self.commands[category]:
-            m = matcher.search(text)
-            if m:
-                has_matching_plugin = True
-                yield self.commands[category][matcher], to_utf8(m.groups())
+            if isinstance(matcher, tuple):
+                matcher, user, channel = matcher
+                if channel and channel != self.message._body['channel']:
+                    yield None, None
+
+                if user and user != self.message._body['user']:
+                    yield None, None
+                m = matcher.search(text)
+                if m:
+                    has_matching_plugin = True
+                    yield self.commands[category][matcher], to_utf8(m.groups())
+            else:
+                m = matcher.search(text)
+                if m:
+                    has_matching_plugin = True
+                    yield self.commands[category][matcher], to_utf8(m.groups())
 
         if not has_matching_plugin:
             yield None, None
