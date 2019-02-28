@@ -77,13 +77,13 @@ class PluginsManager(object):
             text = ''
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
-                matcher, user, channel = matcher
+                match, user, channel = matcher
                 if channel and channel != self.message._body['channel']:
                     yield None, None
 
                 if user and user != self.message._body['user']:
                     yield None, None
-                m = matcher.search(text)
+                m = match.search(text)
                 if m:
                     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
