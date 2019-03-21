@@ -93,6 +93,7 @@ class PluginsManager(object):
 
                 if user and user != self.user:
                     yield None, None
+                logger.info("pebcak")
                 m = match.search(text)
                 if m:
                     has_matching_plugin = True
