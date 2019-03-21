@@ -89,12 +89,12 @@ class PluginsManager(object):
                     yield None, None
                     continue
                 logger.info('***')
-                logger.info(self.user)
+                logger.info(self.message['user'])
                 logger.info(user)
-                logger.info(user is not None and user != self.user)
+                logger.info(user is not None and user != self.message['user'])
                 logger.info('***')
 
-                if user is not None and user != self.user:
+                if user is not None and user != self.message['user']:
                     yield None, None
                     continue
                 logger.info("pebcak")
