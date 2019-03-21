@@ -87,6 +87,7 @@ class PluginsManager(object):
                 logger.info(channel and channel != self.message['channel'])
                 if channel and channel != self.message['channel']:
                     yield None, None
+                    continue
                 logger.info('***')
                 logger.info(self.user)
                 logger.info(user)
@@ -95,6 +96,7 @@ class PluginsManager(object):
 
                 if user and user != self.user:
                     yield None, None
+                    continue
                 logger.info("pebcak")
                 m = match.search(text)
                 if m:
