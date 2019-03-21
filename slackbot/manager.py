@@ -81,11 +81,17 @@ class PluginsManager(object):
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
                 match, user, channel = matcher
-                logger.info(self.message)
+                logger.info('***')
+                logger.info(self.message['channel'])
+                logger.info(channel)
                 if channel and channel != self.message['channel']:
                     yield None, None
+                logger.info('***')
+                logger.info(self.user)
+                logger.info(user)
+                logger.info('***')
 
-                if user and user != self.user:
+            if user and user != self.user:
                     yield None, None
                 m = match.search(text)
                 if m:
