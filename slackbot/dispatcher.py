@@ -56,7 +56,7 @@ class MessageDispatcher(object):
 
         if 'text' not in msg and 'reaction' in msg:
             lookup = 'reaction'
-
+        self._plugins.set_message(msg)
         for func, args in self._plugins.get_plugins(category, msg.get(lookup, None)):
             if func:
                 responded = True
