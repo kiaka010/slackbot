@@ -81,6 +81,7 @@ class PluginsManager(object):
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
                 match, user, channel = matcher
+                logger.info(self.message)
                 if channel and channel != self.message['channel']:
                     yield None, None
 
