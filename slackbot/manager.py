@@ -91,7 +91,7 @@ class PluginsManager(object):
                 logger.info(user)
                 logger.info('***')
 
-            if user and user != self.user:
+                if user and user != self.user:
                     yield None, None
                 m = match.search(text)
                 if m:
