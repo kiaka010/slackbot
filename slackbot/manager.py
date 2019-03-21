@@ -84,17 +84,17 @@ class PluginsManager(object):
                 logger.info('***')
                 logger.info(self.message['channel'])
                 logger.info(channel)
-                logger.info(channel and channel != self.message['channel'])
-                if channel and channel != self.message['channel']:
+                logger.info(channel is not None and channel != self.message['channel'])
+                if channel is not None and channel != self.message['channel']:
                     yield None, None
                     continue
                 logger.info('***')
                 logger.info(self.user)
                 logger.info(user)
-                logger.info(user and user != self.user)
+                logger.info(user is not None and user != self.user)
                 logger.info('***')
 
-                if user and user != self.user:
+                if user is not None and user != self.user:
                     yield None, None
                     continue
                 logger.info("pebcak")
