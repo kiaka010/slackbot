@@ -84,11 +84,13 @@ class PluginsManager(object):
                 logger.info('***')
                 logger.info(self.message['channel'])
                 logger.info(channel)
+                logger.info(channel and channel != self.message['channel'])
                 if channel and channel != self.message['channel']:
                     yield None, None
                 logger.info('***')
                 logger.info(self.user)
                 logger.info(user)
+                logger.info(user and user != self.user)
                 logger.info('***')
 
                 if user and user != self.user:
