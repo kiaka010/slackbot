@@ -211,6 +211,7 @@ class Message(object):
         self._client = slackclient
         self._body = body
         self._plugins = PluginsManager()
+        logger.info(body)
         self._plugins.set_message(body)
         self._plugins.set_user(self._get_user_id())
 
