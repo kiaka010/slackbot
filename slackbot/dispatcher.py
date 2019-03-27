@@ -80,6 +80,9 @@ class MessageDispatcher(object):
                     #                                                   tb))
         return responded
 
+    def _on_new_member(self, member):
+        self._pool.add_task(('member_joined', member))
+
     def _on_new_react(self, react):
         self._pool.add_task(('react_to', react))
 
@@ -153,6 +156,8 @@ class MessageDispatcher(object):
                 event_type = event.get('type')
                 if event_type == 'message':
                     self._on_new_message(event)
+                elif event_type == 'member_joined_channel':
+                    self._on_new_member(event)
                 elif event_type == 'reaction_added':
                     self._on_new_react(event)
                 elif event_type in ['channel_created', 'channel_rename',

@@ -16,6 +16,7 @@ class PluginsManager(object):
         pass
 
     commands = {
+        'member_joined': {},
         'respond_to': {},
         'listen_to': {},
         'react_to': {},
