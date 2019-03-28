@@ -48,6 +48,23 @@ class Bot(object):
             self._client.ping()
 
 
+def member_joined(react_str, flags=0):
+    """
+    @todo add in ability to filter channel with flags
+    :param react_str:
+    :param flags:
+    :return:
+    """
+    def wrapper(func):
+        PluginsManager.commands['member_joined'][
+            re.compile(react_str, flags)] = func
+        logger.info('registered member_joined plugin "%s" to "%s"', func.__name__,
+                    react_str)
+        return func
+
+    return wrapper
+
+
 def react_to(react_str, flags=0):
     def wrapper(func):
         PluginsManager.commands['react_to'][

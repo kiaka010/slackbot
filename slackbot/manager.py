@@ -25,6 +25,7 @@ class PluginsManager(object):
 
 
     commands = {
+        'member_joined': {},
         'respond_to': {},
         'listen_from': {},
         'listen_to': {},
