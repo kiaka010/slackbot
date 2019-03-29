@@ -82,20 +82,12 @@ class PluginsManager(object):
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
                 match, user, channel = matcher
-                logger.info('***')
-                logger.info(self.message['channel'])
-                logger.info(channel)
-                logger.info(channel is not None and channel != self.message['channel'])
                 if channel is not None and channel != self.message['channel']:
+                    logger.info('Channel set But Doesnt Match')
                     yield None, None
                     continue
-                logger.info('***')
-                logger.info(self.message['user'])
-                logger.info(user)
-                logger.info(user is not None and user != self.message['user'])
-                logger.info('***')
-
                 if user is not None and user != self.message['user']:
+                    logger.info('User set But Doesnt Match')
                     yield None, None
                     continue
                 logger.info("pebcak")
