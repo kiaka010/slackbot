@@ -87,12 +87,7 @@ class PluginsManager(object):
                 # and a set channel not specified
                 # and the message channel is in the blacklist
                 if category not in ['respond_to', 'default_reply'] and channel is None and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
-                    logger.info('*******')
-                    logger.info(category)
-                    logger.info(settings.CHANNEL_BLACK_LIST)
                     logger.info("Black Listed channel & override not found")
-                    logger.info('*******')
-
                     yield None, None
                     continue
 
