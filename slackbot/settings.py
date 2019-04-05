@@ -41,6 +41,7 @@ effect.
 '''Specify a different reply when the bot is messaged with no matching cmd'''
 DEFAULT_REPLY = None
 DEFAULT_LISTEN = None
+CHANNEL_BLACK_LIST = []
 
 for key in os.environ:
     if key[:9] == 'SLACKBOT_':
