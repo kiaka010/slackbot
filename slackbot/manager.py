@@ -82,6 +82,12 @@ class PluginsManager(object):
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
                 match, user, channel = matcher
+
+                if channel is None and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
+                    logger.info("Black Listed channel & override not found")
+                    yield None, None
+                    continue
+
                 if channel is not None and channel != self.message['channel']:
                     logger.info('Channel set But Doesnt Match')
                     yield None, None
