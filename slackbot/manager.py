@@ -82,6 +82,7 @@ class PluginsManager(object):
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
                 match, user, channel = matcher
+                logger.info(match)
                 # if not a direct message
                 # and a set channel not specified
                 # and the message channel is in the blacklist
