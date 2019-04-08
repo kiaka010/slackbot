@@ -87,16 +87,16 @@ class PluginsManager(object):
                 # and a set channel not specified
                 # and the message channel is in the blacklist
                 if category not in ['respond_to', 'default_reply'] and channel is None and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
-                    logger.info("Black Listed channel & override not found")
+                    logger.debug("Black Listed channel & override not found")
                     yield None, None
                     continue
 
                 if channel is not None and channel != self.message['channel']:
-                    logger.info('Channel set But Doesnt Match')
+                    logger.debug('Channel set But Doesnt Match')
                     yield None, None
                     continue
                 if user is not None and user != self.message['user']:
-                    logger.info('User set But Doesnt Match')
+                    logger.debug('User set But Doesnt Match')
                     yield None, None
                     continue
                 logger.info("pebcak")
@@ -106,7 +106,7 @@ class PluginsManager(object):
                     yield self.commands[category][matcher], to_utf8(m.groups())
             else:
                 if category not in ['respond_to', 'default_reply'] and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
-                    logger.info("Black Listed channel & override not found in matcher")
+                    logger.debug("Black Listed channel & override not found in matcher")
                     yield None, None
                     continue
 
