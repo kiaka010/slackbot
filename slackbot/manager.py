@@ -113,10 +113,16 @@ class PluginsManager(object):
                     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
             else:
-                if category not in ['respond_to', 'default_reply'] and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
-                    logger.debug("Black Listed channel & override not found in matcher")
-                    yield None, None
-                    continue
+                if category not in ['respond_to', 'default_reply']:
+                    if 'channel' in self.message and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
+                        logger.debug("Black Listed channel & override not found in matcher")
+                        yield None, None
+                        continue
+
+                    elif 'item' in self.message and 'channel' in self.message['item'] and self.message['item']['channel'] in settings.CHANNEL_BLACK_LIST:
+                        logger.debug("Black Listed channel & override not found in matcher")
+                        yield None, None
+                        continue
 
                 m = matcher.search(text)
                 if m:
