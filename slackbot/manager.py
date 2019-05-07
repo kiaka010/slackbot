@@ -87,24 +87,23 @@ class PluginsManager(object):
                 # and the message channel is in the blacklist
                 if category not in ['respond_to', 'default_reply'] and channel is None:
                     if 'channel' in self.message and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
-                        logger.debug("Black Listed channel & override not found")
+                        # logger.debug("Black Listed channel & override not found")
                         yield None, None
                         continue
 
                     elif 'item' in self.message and 'channel' in self.message['item'] and self.message['item']['channel'] in settings.CHANNEL_BLACK_LIST:
-                        logger.debug("Black Listed channel & override not found")
+                        # logger.debug("Black Listed channel & override not found")
                         yield None, None
                         continue
 
                 if channel is not None and channel != self.message['channel']:
-                    logger.debug('Channel set But Doesnt Match')
+                    # logger.debug('Channel set But Doesnt Match')
                     yield None, None
                     continue
                 if user is not None and user != self.message['user']:
-                    logger.debug('User set But Doesnt Match')
+                    # logger.debug('User set But Doesnt Match')
                     yield None, None
                     continue
-                logger.info("pebcak")
                 m = match.search(text)
                 if m:
                     has_matching_plugin = True
@@ -112,12 +111,12 @@ class PluginsManager(object):
             else:
                 if category not in ['respond_to', 'default_reply']:
                     if 'channel' in self.message and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
-                        logger.debug("Black Listed channel & override not found in matcher")
+                        # logger.debug("Black Listed channel & override not found in matcher")
                         yield None, None
                         continue
 
                     elif 'item' in self.message and 'channel' in self.message['item'] and self.message['item']['channel'] in settings.CHANNEL_BLACK_LIST:
-                        logger.debug("Black Listed channel & override not found in matcher")
+                        # logger.debug("Black Listed channel & override not found in matcher")
                         yield None, None
                         continue
 
