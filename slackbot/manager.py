@@ -135,7 +135,7 @@ class PluginsManager(object):
                     has_matching_plugin = True
                     # g = m.groups()
                     a = []
-                    if m is list:
+                    if isinstance(m, list):
                         for b in m:
                             a.append(to_utf8(b.groups()))
                         yield self.commands[category][matcher], a
