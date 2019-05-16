@@ -97,7 +97,7 @@ class PluginsManager(object):
                 # if not a direct message
                 # and a set channel not specified
                 # and the message channel is in the blacklist
-                if category not in ['respond_to', 'default_reply'] and channel is None:
+                if category not in ['respond_to', 'respond_to_all', 'default_reply'] and channel is None:
                     if 'channel' in self.message and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
                         # logger.debug("Black Listed channel & override not found")
                         yield None, None
@@ -122,7 +122,7 @@ class PluginsManager(object):
                     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
             else:
-                if category not in ['respond_to', 'default_reply']:
+                if category not in ['respond_to', 'respond_to_all', 'default_reply']:
                     if 'channel' in self.message and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
                         # logger.debug("Black Listed channel & override not found in matcher")
                         yield None, None
