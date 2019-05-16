@@ -27,11 +27,8 @@ class PluginsManager(object):
     commands = {
         'member_joined': {},
         'respond_to': {},
-        'respond_to_all': {},  # New _all
         'listen_from': {},
-        'listen_from_all': {},  # New _all
         'listen_to': {},
-        'listen_to_all': {},  # New _all
         'react_to': {},
         'default_reply': {},
         'default_listen': {}
