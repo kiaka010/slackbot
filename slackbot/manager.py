@@ -83,13 +83,10 @@ class PluginsManager(object):
         if text is None:
             text = ''
 
-
-        if category == 'respond_to_all':
-            def get_match(matcher, text):
-                return matcher.search(text)
-        else:
-            def get_match(matcher, text):
-                return matcher.findall(text)
+        def get_match(mmmm, texts):
+            if category == 'respond_to_all':
+                return mmmm.findall(texts)
+            return mmmm.search(texts)
 
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
