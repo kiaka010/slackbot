@@ -120,7 +120,7 @@ class PluginsManager(object):
                         yield None, None
                         continue
 
-                m = matcher.search(text)
+                m = matcher.findall(text)
                 if m:
                     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
