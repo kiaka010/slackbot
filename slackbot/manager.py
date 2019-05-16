@@ -92,8 +92,6 @@ class PluginsManager(object):
             return mmmm.search(texts)
 
         for matcher in self.commands[category]:
-            if has_matching_plugin:
-                continue
             if isinstance(matcher, tuple):
                 match, user, channel = matcher
                 # if not a direct message
