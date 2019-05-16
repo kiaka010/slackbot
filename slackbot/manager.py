@@ -133,10 +133,10 @@ class PluginsManager(object):
                 m = get_match(matcher, text)  # matcher.search(text)
                 if m:
                     has_matching_plugin = True
-                    g = m.groups()
+                    # g = m.groups()
                     a = []
-                    if g is list:
-                        for b in g:
+                    if m is list:
+                        for b in m:
                             a.append(to_utf8(b.groups()))
                         yield self.commands[category][matcher], a
                     else:
