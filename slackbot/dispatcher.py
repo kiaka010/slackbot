@@ -44,15 +44,13 @@ class MessageDispatcher(object):
         print (category)
         print (msg)
         if not self._dispatch_msg_handler(category, msg):
-            logger.info( 'pebcak')
-            logger.info( category)
-            logger.info( category == u'respond_to')
             if category == u'respond_to':
                 if not self._dispatch_msg_handler('default_reply', msg):
                     self._default_reply(msg)
             elif category == u'listen_to':
                 if not self._dispatch_msg_handler('default_listen', msg):
                     self._default_listen(msg)
+
     def _dispatch_msg_handler(self, category, msg):
         responded = False
         lookup = 'text'
@@ -110,7 +108,7 @@ class MessageDispatcher(object):
 
         msg_respond_to = self.filter_text(msg)
         if msg_respond_to:
-            self._pool.add_task(('respond_to_all', msg_respond_to))
+            # self._pool.add_task(('respond_to_all', msg_respond_to))
             self._pool.add_task(('respond_to', msg_respond_to))
         else:
             self._pool.add_task(('listen_from', msg))

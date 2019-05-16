@@ -84,7 +84,7 @@ class PluginsManager(object):
             text = ''
 
         def is_catch_all_category():
-            return category == 'respond_to_all'
+            return category == 'respond_to_all' or category == 'listen_to_all'
 
         def get_match(mmmm, texts):
             if is_catch_all_category():
@@ -138,7 +138,8 @@ class PluginsManager(object):
                     has_matching_plugin = True
                     # g = m.groups()
 
-                    if is_catch_all_category():
+                    # if is_catch_all_category():
+                    if hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
                         a = []
                         for b in m:
                             a.append(to_utf8(b.groups()))
