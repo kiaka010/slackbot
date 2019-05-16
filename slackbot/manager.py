@@ -83,8 +83,11 @@ class PluginsManager(object):
         if text is None:
             text = ''
 
+        def is_catch_all_category():
+            return category == 'respond_to_all'
+
         def get_match(mmmm, texts):
-            if category == 'respond_to_all':
+            if is_catch_all_category():
                 return mmmm.finditer(texts)
             return mmmm.search(texts)
 
@@ -134,12 +137,13 @@ class PluginsManager(object):
                 if m:
                     has_matching_plugin = True
                     # g = m.groups()
-                    a = []
-                    try:
+
+                    if is_catch_all_category():
+                        a = []
                         for b in m:
                             a.append(to_utf8(b.groups()))
                         yield self.commands[category][matcher], a
-                    except TypeError as te:
+                    else:
                         yield self.commands[category][matcher], to_utf8(m.groups())
 
         if not has_matching_plugin:
