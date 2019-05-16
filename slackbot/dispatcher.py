@@ -107,9 +107,11 @@ class MessageDispatcher(object):
 
         msg_respond_to = self.filter_text(msg)
         if msg_respond_to:
+            self._pool.add_task(('respond_to_all', msg_respond_to))
             self._pool.add_task(('respond_to', msg_respond_to))
         else:
             self._pool.add_task(('listen_from', msg))
+            self._pool.add_task(('listen_to_all', msg))
             self._pool.add_task(('listen_to', msg))
 
     def _get_bot_id(self):

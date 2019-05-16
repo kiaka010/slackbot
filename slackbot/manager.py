@@ -28,7 +28,9 @@ class PluginsManager(object):
         'member_joined': {},
         'respond_to': {},
         'listen_from': {},
+        'listen_from_all': {}, # New _all
         'listen_to': {},
+        'listen_to_all': {}, # New _all
         'react_to': {},
         'default_reply': {},
         'default_listen': {}
@@ -79,6 +81,15 @@ class PluginsManager(object):
         has_matching_plugin = False
         if text is None:
             text = ''
+
+
+        if category == 'respond_to_all':
+            def get_match(matcher, text):
+                return matcher.search(text)
+        else:
+            def get_match(matcher, text):
+                return matcher.findall(text)
+
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
                 match, user, channel = matcher
@@ -104,7 +115,8 @@ class PluginsManager(object):
                     # logger.debug('User set But Doesnt Match')
                     yield None, None
                     continue
-                m = match.search(text)
+                m = get_match(match, text)  # match.search(text)
+
                 if m:
                     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
@@ -120,7 +132,7 @@ class PluginsManager(object):
                         yield None, None
                         continue
 
-                m = matcher.search(text)
+                m = get_match(matcher, text)  # matcher.search(text)
                 if m:
                     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
