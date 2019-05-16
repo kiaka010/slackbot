@@ -85,7 +85,7 @@ class PluginsManager(object):
 
         def get_match(mmmm, texts):
             if category == 'respond_to_all':
-                return mmmm.findall(texts)
+                return mmmm.finditer(texts)
             return mmmm.search(texts)
 
         for matcher in self.commands[category]:
