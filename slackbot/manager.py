@@ -87,9 +87,10 @@ class PluginsManager(object):
             return category == 'respond_to_all' or category == 'listen_to_all'
 
         def get_match(mmmm, texts):
-            if is_catch_all_category():
-                return mmmm.finditer(texts)
-            return mmmm.search(texts)
+            hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all
+            # if is_catch_all_category():
+            #     return mmmm.finditer(texts)
+            # return mmmm.search(texts)
 
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
