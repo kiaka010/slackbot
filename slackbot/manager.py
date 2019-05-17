@@ -132,17 +132,15 @@ class PluginsManager(object):
                         continue
 
                 m = get_match(matcher, text)
-                if m or (isinstance(m, Iterable) and any(True for _ in m)):
-                    logger.info('Pebcak')
-                    logger.info(m)
+                if m and hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all and any(True for _ in m):
                     has_matching_plugin = True
-                    if hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
-                        match_groups = []
-                        for group in m:
-                            match_groups.append(to_utf8(group.groups()))
-                        yield self.commands[category][matcher], match_groups
-                    else:
-                        yield self.commands[category][matcher], to_utf8(m.groups())
+                    match_groups = []
+                    for group in m:
+                        match_groups.append(to_utf8(group.groups()))
+                    yield self.commands[category][matcher], match_groups
+                elif m:
+                    has_matching_plugin = True
+                    yield self.commands[category][matcher], to_utf8(m.groups())
 
         if not has_matching_plugin:
             yield None, None
