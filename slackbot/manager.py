@@ -84,15 +84,18 @@ class PluginsManager(object):
             # logger.info(hasattr(self.commands[category][mmmm], 'match_all'))
             if hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
                 # logger.info(self.commands[category][mmmm].match_all)
-                # logger.info('found match all')
+                logger.info('found match all')
                 emp = None
                 res = mmmm.finditer(texts)
                 for emp in res:
                     """"""
                 if emp is not None:
+                    logger.info('Results Not Empty')
                     return res
                 else:
-                    return None
+                    logger.info('Results Empty')
+
+                return None
             # logger.info('did not find match all')
             return mmmm.search(texts)
 
@@ -139,8 +142,10 @@ class PluginsManager(object):
                         continue
 
                 m = get_match(matcher, text)
+                logger.info(m)
                 if m and hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
                     has_matching_plugin = True
+                    logger.info('In Match all check')
                     match_groups = []
                     for group in m:
                         match_groups.append(to_utf8(group.groups()))
