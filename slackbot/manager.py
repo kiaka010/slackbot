@@ -133,6 +133,8 @@ class PluginsManager(object):
 
                 m = get_match(matcher, text)
                 if m:
+                    logger.info('Pebcak')
+                    logger.info(m)
                     has_matching_plugin = True
                     if hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
                         match_groups = []
