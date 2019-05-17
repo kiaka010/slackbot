@@ -82,7 +82,6 @@ class PluginsManager(object):
 
         def get_match(mmmm, texts):
             if hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
-            # if is_catch_all_category():
                 return mmmm.finditer(texts)
             return mmmm.search(texts)
 
@@ -92,7 +91,7 @@ class PluginsManager(object):
                 # if not a direct message
                 # and a set channel not specified
                 # and the message channel is in the blacklist
-                if category not in ['respond_to', 'respond_to_all', 'default_reply'] and channel is None:
+                if category not in ['respond_to', 'default_reply'] and channel is None:
                     if 'channel' in self.message and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
                         # logger.debug("Black Listed channel & override not found")
                         yield None, None
@@ -111,13 +110,13 @@ class PluginsManager(object):
                     # logger.debug('User set But Doesnt Match')
                     yield None, None
                     continue
-                m = get_match(match, text)  # match.search(text)
+                m = get_match(match, text)
 
                 if m:
                     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
             else:
-                if category not in ['respond_to', 'respond_to_all', 'default_reply']:
+                if category not in ['respond_to', 'default_reply']:
                     if 'channel' in self.message and self.message['channel'] in settings.CHANNEL_BLACK_LIST:
                         # logger.debug("Black Listed channel & override not found in matcher")
                         yield None, None
@@ -128,17 +127,14 @@ class PluginsManager(object):
                         yield None, None
                         continue
 
-                m = get_match(matcher, text)  # matcher.search(text)
+                m = get_match(matcher, text)
                 if m:
                     has_matching_plugin = True
-                    # g = m.groups()
-
-                    # if is_catch_all_category():
                     if hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
-                        a = []
-                        for b in m:
-                            a.append(to_utf8(b.groups()))
-                        yield self.commands[category][matcher], a
+                        match_groups = []
+                        for group in m:
+                            match_groups.append(to_utf8(group.groups()))
+                        yield self.commands[category][matcher], match_groups
                     else:
                         yield self.commands[category][matcher], to_utf8(m.groups())
 
