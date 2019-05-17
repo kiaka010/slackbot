@@ -139,7 +139,7 @@ class PluginsManager(object):
                         continue
 
                 m = get_match(matcher, text)
-                if m and hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all and any(True for _ in m):
+                if m and hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
                     has_matching_plugin = True
                     match_groups = []
                     for group in m:
