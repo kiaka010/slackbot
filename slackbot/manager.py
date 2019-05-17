@@ -79,6 +79,12 @@ class PluginsManager(object):
         has_matching_plugin = False
         if text is None:
             text = ''
+
+        def get_match(mmmm, texts):
+            if hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
+                return mmmm.finditer(texts)
+            return mmmm.search(texts)
+
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
                 match, user, channel = matcher
@@ -104,7 +110,8 @@ class PluginsManager(object):
                     # logger.debug('User set But Doesnt Match')
                     yield None, None
                     continue
-                m = match.search(text)
+                m = get_match(match, text)
+
                 if m:
                     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
@@ -120,10 +127,16 @@ class PluginsManager(object):
                         yield None, None
                         continue
 
-                m = matcher.search(text)
+                m = get_match(matcher, text)
                 if m:
                     has_matching_plugin = True
-                    yield self.commands[category][matcher], to_utf8(m.groups())
+                    if hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
+                        match_groups = []
+                        for group in m:
+                            match_groups.append(to_utf8(group.groups()))
+                        yield self.commands[category][matcher], match_groups
+                    else:
+                        yield self.commands[category][matcher], to_utf8(m.groups())
 
         if not has_matching_plugin:
             yield None, None

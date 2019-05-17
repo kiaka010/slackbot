@@ -50,6 +50,7 @@ class MessageDispatcher(object):
             elif category == u'listen_to':
                 if not self._dispatch_msg_handler('default_listen', msg):
                     self._default_listen(msg)
+
     def _dispatch_msg_handler(self, category, msg):
         responded = False
         lookup = 'text'
