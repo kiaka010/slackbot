@@ -81,12 +81,12 @@ class PluginsManager(object):
             text = ''
 
         def get_match(mmmm, texts):
-            logger.info(hasattr(self.commands[category][mmmm], 'match_all'))
+            # logger.info(hasattr(self.commands[category][mmmm], 'match_all'))
             if hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
-                logger.info(self.commands[category][mmmm].match_all)
-                logger.info('found match all')
+                # logger.info(self.commands[category][mmmm].match_all)
+                # logger.info('found match all')
                 return mmmm.finditer(texts)
-            logger.info('did not find match all')
+            # logger.info('did not find match all')
             return mmmm.search(texts)
 
         for matcher in self.commands[category]:
