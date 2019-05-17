@@ -132,7 +132,7 @@ class PluginsManager(object):
                         continue
 
                 m = get_match(matcher, text)
-                if m:
+                if m or any(True for _ in m):
                     logger.info('Pebcak')
                     logger.info(m)
                     has_matching_plugin = True
