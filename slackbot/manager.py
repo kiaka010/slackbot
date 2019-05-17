@@ -85,7 +85,14 @@ class PluginsManager(object):
             if hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
                 # logger.info(self.commands[category][mmmm].match_all)
                 # logger.info('found match all')
-                return mmmm.finditer(texts)
+                emp = None
+                res = mmmm.finditer(texts)
+                for emp in res:
+                    """"""
+                if emp is not None:
+                    return res
+                else:
+                    return None
             # logger.info('did not find match all')
             return mmmm.search(texts)
 
