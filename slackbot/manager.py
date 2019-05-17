@@ -7,7 +7,7 @@ from six import PY2
 from importlib import import_module
 from slackbot import settings
 from slackbot.utils import to_utf8
-
+from collections import Iterable
 logger = logging.getLogger(__name__)
 
 
@@ -132,7 +132,7 @@ class PluginsManager(object):
                         continue
 
                 m = get_match(matcher, text)
-                if m or any(True for _ in m):
+                if m or (isinstance(m, Iterable) and any(True for _ in m)):
                     logger.info('Pebcak')
                     logger.info(m)
                     has_matching_plugin = True
