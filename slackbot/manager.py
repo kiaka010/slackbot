@@ -152,6 +152,7 @@ class PluginsManager(object):
                     match_groups = []
                     for group in m:
                         match_groups.append(to_utf8(group.groups()))
+                    logger.info(match_groups)
                     if match_groups:
                         yield self.commands[category][matcher], match_groups
                 elif m:
