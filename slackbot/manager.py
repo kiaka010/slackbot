@@ -7,7 +7,7 @@ from six import PY2
 from importlib import import_module
 from slackbot import settings
 from slackbot.utils import to_utf8
-from collections import Iterable
+import itertools
 logger = logging.getLogger(__name__)
 
 
@@ -132,9 +132,10 @@ class PluginsManager(object):
                     has_matching_plugin = True
                     match_groups = []
                     for group in m:
-                        if group.groups() not in match_groups:
-                            match_groups.append(to_utf8(group.groups()))
+                        match_groups.append(to_utf8(group.groups()))
                     if match_groups:
+                        match_groups.sort()
+                        match_groups = list(match_groups for match_groups,_ in itertools.groupby(match_groups))
                         yield self.commands[category][matcher], match_groups
                 elif m:
                     has_matching_plugin = True
