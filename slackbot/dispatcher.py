@@ -63,7 +63,7 @@ class MessageDispatcher(object):
             logger.info('*' * 20)
             logger.info(func)
             logger.info(args)
-            logger.info(set(args))
+            # logger.info(set(args))
             logger.info('*' * 20)
             if func:
                 responded = True
