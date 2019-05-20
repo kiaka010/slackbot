@@ -44,7 +44,6 @@ class MessageDispatcher(object):
         print (category)
         print (msg)
         if not self._dispatch_msg_handler(category, msg):
-            logger.info('Handle not found, fallin to default')
             if category == u'respond_to':
                 if not self._dispatch_msg_handler('default_reply', msg):
                     self._default_reply(msg)
