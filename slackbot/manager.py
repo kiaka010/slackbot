@@ -86,12 +86,13 @@ class PluginsManager(object):
                 # logger.info(self.commands[category][mmmm].match_all)
                 logger.info('found match all')
                 # return mmmm.findall(texts)
-                # emp = None
+                emp = None
                 # logger.info(mmmm.findall(texts))
                 # logger.info(mmmm.finditer(texts))
                 res = mmmm.finditer(texts)
                 for emp in res:
                     """"""
+
                 if emp is not None:
                     logger.info('Results Not Empty')
                     return res
