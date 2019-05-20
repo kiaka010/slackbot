@@ -86,6 +86,8 @@ class PluginsManager(object):
                 # logger.info(self.commands[category][mmmm].match_all)
                 logger.info('found match all')
                 emp = None
+                logger.info(mmmm.findall(texts))
+                logger.info(mmmm.finditer(texts))
                 res = mmmm.finditer(texts)
                 for emp in res:
                     """"""
@@ -94,8 +96,7 @@ class PluginsManager(object):
                     return res
                 else:
                     logger.info('Results Empty')
-
-                return None
+                    return None
             # logger.info('did not find match all')
             return mmmm.search(texts)
 
