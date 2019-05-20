@@ -85,18 +85,19 @@ class PluginsManager(object):
             if hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
                 # logger.info(self.commands[category][mmmm].match_all)
                 logger.info('found match all')
-                emp = None
-                logger.info(mmmm.findall(texts))
-                logger.info(mmmm.finditer(texts))
-                res = mmmm.finditer(texts)
-                for emp in res:
-                    """"""
-                if emp is not None:
-                    logger.info('Results Not Empty')
-                    return res
-                else:
-                    logger.info('Results Empty')
-                    return None
+                return mmmm.findall(texts)
+                # emp = None
+                # logger.info(mmmm.findall(texts))
+                # logger.info(mmmm.finditer(texts))
+                # res = mmmm.finditer(texts)
+                # for emp in res:
+                #     """"""
+                # if emp is not None:
+                #     logger.info('Results Not Empty')
+                #     return res
+                # else:
+                #     logger.info('Results Empty')
+                #     return None
             # logger.info('did not find match all')
             return mmmm.search(texts)
 
