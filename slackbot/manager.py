@@ -7,7 +7,7 @@ from six import PY2
 from importlib import import_module
 from slackbot import settings
 from slackbot.utils import to_utf8
-
+import itertools
 logger = logging.getLogger(__name__)
 
 
@@ -79,6 +79,12 @@ class PluginsManager(object):
         has_matching_plugin = False
         if text is None:
             text = ''
+
+        def get_match(mmmm, texts):
+            if hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
+                return mmmm.finditer(texts)
+            return mmmm.search(texts)
+
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
                 match, user, channel = matcher
@@ -104,7 +110,8 @@ class PluginsManager(object):
                     # logger.debug('User set But Doesnt Match')
                     yield None, None
                     continue
-                m = match.search(text)
+                m = get_match(match, text)
+
                 if m:
                     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
@@ -120,8 +127,17 @@ class PluginsManager(object):
                         yield None, None
                         continue
 
-                m = matcher.search(text)
-                if m:
+                m = get_match(matcher, text)
+                if m and hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
+                    match_groups = []
+                    for group in m:
+                        match_groups.append(to_utf8(group.groups()))
+                    if match_groups:
+                        has_matching_plugin = True
+                        match_groups.sort()
+                        match_groups = list(match_groups for match_groups,_ in itertools.groupby(match_groups))
+                        yield self.commands[category][matcher], match_groups
+                elif m:
                     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
 

@@ -50,6 +50,7 @@ class MessageDispatcher(object):
             elif category == u'listen_to':
                 if not self._dispatch_msg_handler('default_listen', msg):
                     self._default_listen(msg)
+
     def _dispatch_msg_handler(self, category, msg):
         responded = False
         lookup = 'text'
@@ -61,7 +62,11 @@ class MessageDispatcher(object):
             if func:
                 responded = True
                 try:
-                    func(Message(self._client, msg), *args)
+                    if hasattr(func, 'match_all') and func.match_all:
+                        for arg in args:
+                            func(Message(self._client, msg), *arg)
+                    else:
+                        func(Message(self._client, msg), *args)
                 except:
                     logger.exception(
                         'failed to handle message %s with plugin "%s"',
