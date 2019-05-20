@@ -129,11 +129,11 @@ class PluginsManager(object):
 
                 m = get_match(matcher, text)
                 if m and hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
-                    has_matching_plugin = True
                     match_groups = []
                     for group in m:
                         match_groups.append(to_utf8(group.groups()))
                     if match_groups:
+                        has_matching_plugin = True
                         match_groups.sort()
                         match_groups = list(match_groups for match_groups,_ in itertools.groupby(match_groups))
                         yield self.commands[category][matcher], match_groups

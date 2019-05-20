@@ -44,7 +44,7 @@ class MessageDispatcher(object):
         print (category)
         print (msg)
         if not self._dispatch_msg_handler(category, msg):
-            logger.info('Handle not found, falling to default')
+            logger.info('Handle not found, fallin to default')
             if category == u'respond_to':
                 if not self._dispatch_msg_handler('default_reply', msg):
                     self._default_reply(msg)
@@ -60,11 +60,6 @@ class MessageDispatcher(object):
             lookup = 'reaction'
         self._plugins.set_message(msg)
         for func, args in self._plugins.get_plugins(category, msg.get(lookup, None)):
-            # logger.info('*' * 20)
-            # logger.info(func)
-            # logger.info(args)
-            # logger.info(set(args))
-            logger.info('*' * 20)
             if func:
                 responded = True
                 try:
