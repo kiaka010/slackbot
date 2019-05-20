@@ -56,6 +56,8 @@ def member_joined(react_str, flags=0):
     :return:
     """
     def wrapper(func):
+        func.match_all = 0
+
         PluginsManager.commands['member_joined'][
             re.compile(react_str, flags)] = func
         logger.info('registered member_joined plugin "%s" to "%s"', func.__name__,
@@ -67,6 +69,8 @@ def member_joined(react_str, flags=0):
 
 def react_to(react_str, flags=0):
     def wrapper(func):
+        func.match_all = 0
+
         PluginsManager.commands['react_to'][
             re.compile(react_str, flags)] = func
         logger.info('registered react_to plugin "%s" to "%s"', func.__name__,
@@ -89,6 +93,8 @@ def respond_to(matchstr, flags=0, match_all=0):
 
 def listen_from(matchstr, user_name=None, channel=None, flags=0):
     def wrapper(func):
+        func.match_all = 0
+
         PluginsManager.commands['listen_from'][
             (
                 re.compile(matchstr, flags),
@@ -105,6 +111,8 @@ def listen_from(matchstr, user_name=None, channel=None, flags=0):
 
 def listen_to(matchstr, flags=0, match_all=0):
     def wrapper(func):
+        func.match_all = 0
+
         func.match_all = match_all
         PluginsManager.commands['listen_to'][
             re.compile(matchstr, flags)] = func
@@ -123,6 +131,8 @@ def default_listen(*args, **kwargs):
         func = args[0]
 
     def wrapper(func):
+        func.match_all = 0
+
         PluginsManager.commands['default_listen'][
             re.compile(matchstr, flags)] = func
         logger.info('registered default_listen plugin "%s" to "%s"', func.__name__,
