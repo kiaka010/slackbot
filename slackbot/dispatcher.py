@@ -60,11 +60,15 @@ class MessageDispatcher(object):
             lookup = 'reaction'
         self._plugins.set_message(msg)
         for func, args in self._plugins.get_plugins(category, msg.get(lookup, None)):
+            logger.info('*' * 20)
             logger.info(func)
             logger.info(args)
+            logger.info('*' * 20)
             if func:
                 responded = True
                 try:
+                    func(Message(self._client, msg), *args)
+
                     for arg in args:
                         func(Message(self._client, msg), *arg)
                 except:
