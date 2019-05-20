@@ -89,7 +89,9 @@ class PluginsManager(object):
                 return mmmm.finditer(texts)
             if isinstance(mmmm, tuple):
                 match, _ = mmmm
-            return match.search(texts)
+                return match.search(texts)
+            return mmmm.search(texts)
+
 
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
