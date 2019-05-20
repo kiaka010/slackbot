@@ -114,7 +114,7 @@ class PluginsManager(object):
                     # logger.debug('User set But Doesnt Match')
                     yield None, None
                     continue
-                m = get_match(match, text)
+                m = get_match(matcher, text)
 
                 if m:
                     has_matching_plugin = True
