@@ -87,7 +87,9 @@ class PluginsManager(object):
             logger.info(hasattr(self.commands[category][mmmm], 'match_all'))
             if mmmm in self.commands[category] and hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
                 return mmmm.finditer(texts)
-            return mmmm.search(texts)
+            if isinstance(mmmm, tuple):
+                match, _ = mmmm
+            return match.search(texts)
 
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
