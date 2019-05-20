@@ -146,14 +146,14 @@ class PluginsManager(object):
                 m = get_match(matcher, text)
                 logger.info(m)
                 if m and hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
-                    has_matching_plugin = True
-                    logger.info('In Match all check')
-                    match_groups = []
-                    for group in m:
-                        match_groups.append(to_utf8(group.groups()))
-                    yield self.commands[category][matcher], match_groups
-                elif m:
-                    has_matching_plugin = True
+                #     has_matching_plugin = True
+                #     logger.info('In Match all check')
+                #     match_groups = []
+                #     for group in m:
+                #         match_groups.append(to_utf8(group.groups()))
+                #     yield self.commands[category][matcher], match_groups
+                # elif m:
+                #     has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
 
         if not has_matching_plugin:
