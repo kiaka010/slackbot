@@ -82,6 +82,7 @@ class PluginsManager(object):
 
         def get_match(mmmm, texts):
             logger.info(mmmm)
+            logger.info(category)
             logger.info(self.commands[category][mmmm])
             logger.info(hasattr(self.commands[category][mmmm], 'match_all'))
             if mmmm in self.commands[category] and hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
