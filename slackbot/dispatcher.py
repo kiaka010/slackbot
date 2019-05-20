@@ -67,7 +67,11 @@ class MessageDispatcher(object):
             if func:
                 responded = True
                 try:
-                    func(Message(self._client, msg), *args)
+                    if hasattr(func, 'match_all') and func.match_all:
+                        for arg in args:
+                            func(Message(self._client, msg), *arg)
+                    else:
+                        func(Message(self._client, msg), *args)
                 except:
                     logger.exception(
                         'failed to handle message %s with plugin "%s"',
