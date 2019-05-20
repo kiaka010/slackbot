@@ -81,9 +81,12 @@ class PluginsManager(object):
             text = ''
 
         def get_match(mmmm, texts):
-            if hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
+            if mmmm in self.commands[category] and hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
                 return mmmm.finditer(texts)
+            if isinstance(mmmm, tuple):
+                return mmmm[0].search(texts)
             return mmmm.search(texts)
+
 
         for matcher in self.commands[category]:
             if isinstance(matcher, tuple):
@@ -110,7 +113,7 @@ class PluginsManager(object):
                     # logger.debug('User set But Doesnt Match')
                     yield None, None
                     continue
-                m = get_match(match, text)
+                m = get_match(matcher, text)
 
                 if m:
                     has_matching_plugin = True
