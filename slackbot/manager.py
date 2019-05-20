@@ -85,20 +85,20 @@ class PluginsManager(object):
             if hasattr(self.commands[category][mmmm], 'match_all') and self.commands[category][mmmm].match_all:
                 # logger.info(self.commands[category][mmmm].match_all)
                 logger.info('found match all')
-                return mmmm.findall(texts)
+                # return mmmm.findall(texts)
                 # emp = None
                 # logger.info(mmmm.findall(texts))
                 # logger.info(mmmm.finditer(texts))
-                # res = mmmm.finditer(texts)
-                # for emp in res:
-                #     """"""
-                # if emp is not None:
-                #     logger.info('Results Not Empty')
-                #     return res
-                # else:
-                #     logger.info('Results Empty')
-                #     return None
-            # logger.info('did not find match all')
+                res = mmmm.finditer(texts)
+                for emp in res:
+                    """"""
+                if emp is not None:
+                    logger.info('Results Not Empty')
+                    return res
+                else:
+                    logger.info('Results Empty')
+                    return None
+            logger.info('did not find match all')
             return mmmm.search(texts)
 
         for matcher in self.commands[category]:
@@ -146,14 +146,15 @@ class PluginsManager(object):
                 m = get_match(matcher, text)
                 logger.info(m)
                 if m and hasattr(self.commands[category][matcher], 'match_all') and self.commands[category][matcher].match_all:
-                #     has_matching_plugin = True
-                #     logger.info('In Match all check')
-                #     match_groups = []
-                #     for group in m:
-                #         match_groups.append(to_utf8(group.groups()))
-                #     yield self.commands[category][matcher], match_groups
-                # elif m:
-                #     has_matching_plugin = True
+                    has_matching_plugin = True
+                    logger.info('In Match all check')
+                    match_groups = []
+                    for group in m:
+                        match_groups.append(to_utf8(group.groups()))
+                    if match_groups:
+                        yield self.commands[category][matcher], match_groups
+                elif m:
+                    has_matching_plugin = True
                     yield self.commands[category][matcher], to_utf8(m.groups())
 
         if not has_matching_plugin:
