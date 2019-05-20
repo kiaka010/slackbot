@@ -60,9 +60,9 @@ class MessageDispatcher(object):
             lookup = 'reaction'
         self._plugins.set_message(msg)
         for func, args in self._plugins.get_plugins(category, msg.get(lookup, None)):
-            logger.info('*' * 20)
-            logger.info(func)
-            logger.info(args)
+            # logger.info('*' * 20)
+            # logger.info(func)
+            # logger.info(args)
             # logger.info(set(args))
             logger.info('*' * 20)
             if func:
