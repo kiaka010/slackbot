@@ -109,7 +109,7 @@ class PluginsManager(object):
                     # logger.debug('Channel set But Doesnt Match')
                     yield None, None
                     continue
-                if user is not None and user != self.message['user']:
+                if user is not None and 'user' in self.message and user != self.message['user']:
                     # logger.debug('User set But Doesnt Match')
                     yield None, None
                     continue
