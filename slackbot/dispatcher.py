@@ -305,7 +305,7 @@ class Message(object):
         """
             Send an ephermeral reply via direct message using RTM API
         """
-        return self._client.rtm_send_message(self._body['channel'], text, user, kwargs)
+        return self._client.send_ephemeral_message(self._body['channel'], text, user, kwargs)
 
     @unicode_compact
     def direct_reply(self, text):
