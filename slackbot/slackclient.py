@@ -119,6 +119,14 @@ class SlackClient(object):
                 data.append(json.loads(d))
         return data
 
+    def send_ephemeral_message(self, channel, text, user, **kwargs):
+        return self.webapi.chat.post_ephemeral(
+            channel,
+            text,
+            user,
+            **kwargs
+        )
+
     def rtm_send_message(self, channel, message, attachments=None, thread_ts=None):
         message_json = {
             'type': 'message',
