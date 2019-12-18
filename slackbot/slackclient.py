@@ -124,7 +124,7 @@ class SlackClient(object):
             channel,
             text,
             user,
-            kwargs
+            **kwargs
         )
 
     def rtm_send_message(self, channel, message, attachments=None, thread_ts=None):
