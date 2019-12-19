@@ -53,7 +53,7 @@ class MessageDispatcher(object):
                 responded = True
                 try:
                     func(Message(self._client, msg), *args)
-                except:
+                except Exception:
                     logger.exception(
                         'failed to handle message %s with plugin "%s"',
                         msg['text'], func.__name__)
@@ -84,6 +84,8 @@ class MessageDispatcher(object):
         except (KeyError, TypeError):
             if 'username' in msg:
                 username = msg['username']
+            elif 'bot_profile' in msg and 'name' in msg['bot_profile']:
+                username = msg['bot_profile']['name']
             else:
                 return
 
@@ -267,7 +269,7 @@ class Message(object):
     def direct_reply(self, text):
         """
             Send a reply via direct message using RTM API
-            
+
         """
         channel_id = self._client.open_dm_channel(self._get_user_id())
         self._client.rtm_send_message(channel_id, text)
