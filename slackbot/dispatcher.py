@@ -67,7 +67,7 @@ class MessageDispatcher(object):
                             func(Message(self._client, msg), *arg)
                     else:
                         func(Message(self._client, msg), *args)
-                except:
+                except Exception:
                     logger.exception(
                         'failed to handle message %s with plugin "%s"',
                         msg[lookup], func.__name__)
@@ -104,6 +104,8 @@ class MessageDispatcher(object):
         except (KeyError, TypeError):
             if 'username' in msg:
                 username = msg['username']
+            elif 'bot_profile' in msg and 'name' in msg['bot_profile']:
+                username = msg['bot_profile']['name']
             else:
                 return
 

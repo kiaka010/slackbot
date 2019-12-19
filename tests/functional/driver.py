@@ -123,7 +123,7 @@ class Driver(object):
                         raise AssertionError(
                             'expected to get nothing, but got message "{}"'.format(event['text']))
 
-    def wait_for_file_uploaded(self, name, maxwait=60):
+    def wait_for_file_uploaded(self, name, maxwait=30):
         for _ in range(maxwait):
             time.sleep(1)
             if self._has_uploaded_file_rtm(name):
@@ -204,7 +204,7 @@ class Driver(object):
         while True:
             try:
                 data += '{0}\n'.format(self._websocket.recv())
-            except:
+            except Exception:
                 return data.rstrip()
 
     def _rtm_read_forever(self):
@@ -237,9 +237,9 @@ class Driver(object):
         with self._events_lock:
             for event in self.events:
                 if event['type'] == 'message' \
-                   and event.get('subtype') == 'file_share' \
-                   and event['file']['name'] == name \
-                   and event['file']['user'] == self.testbot_userid:
+                   and 'files' in event \
+                   and event['files'][0]['name'] == name \
+                   and event['files'][0]['user'] == self.testbot_userid:
                     return True
             return False
 
